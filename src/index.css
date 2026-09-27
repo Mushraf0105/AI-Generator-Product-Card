@@ -1,0 +1,10 @@
+/* 
+  Import Tailwind CSS v4 
+  This replaces the old @tailwind directives.
+*/
+@import "tailwindcss";
+
+/* 
+  Custom global styles can be added here.
+  Currently using 100% utility classes from Tailwind.
+*/
