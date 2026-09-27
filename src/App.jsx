@@ -3,7 +3,7 @@
  * Main React Component for the AI Product Card Generator
  * Handles UI state, form submissions, image blob fetching, and API requests to Google Gemini
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Sparkles, Loader2, Tag, Info, ShoppingBag, ShoppingCart } from 'lucide-react';
 
 export default function App() {
@@ -14,14 +14,6 @@ export default function App() {
   const [productDetails, setProductDetails] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
-  // Clean up object URLs to prevent memory leaks in the browser
-  useEffect(() => {
-    return () => {
-      if (imageUrl && imageUrl.startsWith('blob:')) {
-        URL.revokeObjectURL(imageUrl);
-      }
-    };
-  }, [imageUrl]);
 
   // Fetches product details from Google Gemini based on user input
   const generateDetails = async (e) => {
