@@ -9,11 +9,11 @@ import { Sparkles, Loader2, Tag, Info, ShoppingBag, ShoppingCart } from 'lucide-
 export default function App() {
   const [productName, setProductName] = useState('');
   const [category, setCategory] = useState('');
+  const [apiKey, setApiKey] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [productDetails, setProductDetails] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-
 
   // Fetches product details from Google Gemini based on user input
   const generateDetails = async (e) => {
@@ -22,17 +22,17 @@ export default function App() {
       setError('Please provide both a product name and category.');
       return;
     }
+    
+    if (!apiKey.trim()) {
+      setError('Please provide your Gemini API Key.');
+      return;
+    }
 
     setLoading(true);
     setError('');
     setImageUrl(null);
 
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-      if (!apiKey) {
-        throw new Error("API key is missing. Please set VITE_GEMINI_API_KEY in your .env file.");
-      }
-
       const prompt = `You are an expert copywriter. Generate product card details for a product named "${productName}" in the category "${category}".
 Return ONLY a valid JSON object with the following structure:
 {
@@ -109,6 +109,17 @@ Return ONLY a valid JSON object with the following structure:
           </div>
 
           <form onSubmit={generateDetails} className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-300">Gemini API Key</label>
+              <input
+                type="password"
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                placeholder="Enter your Gemini API key"
+                className="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all placeholder:text-slate-600"
+              />
+            </div>
+            
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-300">Product Name</label>
               <input
