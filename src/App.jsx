@@ -22,7 +22,7 @@ export default function App() {
       setError('Please provide both a product name and category.');
       return;
     }
-    
+
     if (!apiKey.trim()) {
       setError('Please provide your Gemini API Key.');
       return;
@@ -66,24 +66,11 @@ Return ONLY a valid JSON object with the following structure:
       const parsedData = JSON.parse(textResponse);
       setProductDetails(parsedData);
 
-      // We do NOT set imageUrl immediately. This keeps the "Generating photo..." spinner visible.
       const imgPrompt = parsedData.imagePrompt || productName + ' product photography';
       const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(imgPrompt)}?width=800&height=600&nologo=true`;
-
-      // We load the image using the native Image object to avoid CORS issues!
-      // This also lets us wait for it to load before hiding the "Generating photo..." spinner.
-      const img = new Image();
-      img.onload = () => {
-        setImageUrl(imgUrl);
-      };
-      img.onerror = () => {
-        console.error('Primary AI image failed, using fallback');
-        // If AI fails, fallback to a clean text placeholder
-        const text = encodeURIComponent(parsedData.title || productName);
-        setImageUrl(`https://placehold.co/800x600/1e293b/a78bfa?text=${text}`);
-      };
-      img.src = imgUrl;
-
+      
+      setImageUrl(imgUrl);
+      
       setProductName('');
       setCategory('');
     } catch (err) {
@@ -119,7 +106,7 @@ Return ONLY a valid JSON object with the following structure:
                 className="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all placeholder:text-slate-600"
               />
             </div>
-            
+
             <div className="space-y-2">
               <label className="text-sm font-medium text-slate-300">Product Name</label>
               <input
