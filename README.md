@@ -60,7 +60,18 @@ This project heavily relies on two distinct AI models working synchronously to g
     - **Native Image Loading**: The image tag handles its own loading and error states locally, preventing the app from feeling "stuck" on long image generation times.
 
 ## 🛠️ Tech Stack
-- React 18 (Vite)
-- Tailwind CSS v4
-- Lucide React (Icons)
-- Google Gemini API
+
+**Core Application**
+- **React 19:** The latest version of the popular UI library.
+- **Vite:** Next-generation frontend tooling for ultra-fast hot module replacement and building.
+- **Tailwind CSS v4:** Utility-first CSS framework (configured via the new Vite plugin for optimal performance).
+- **Lucide React:** Beautiful and consistent open-source icon set.
+
+**AI & External Services**
+- **Google Gemini API (`gemini-flash-latest`):** Serves as the core AI text and prompt generation engine.
+- **Pollinations AI:** A free, on-the-fly REST API for generating the product imagery from Gemini's prompts.
+- **Placehold.co:** Used for dynamic, color-coordinated fallback images.
+
+**Tooling & Deployment**
+- **Oxlint:** An ultra-fast, Rust-based linter used to keep code quality pristine.
+- **GitHub Pages:** Used for seamless, free hosting and CI/CD deployment via the `gh-pages` package.
